@@ -72,7 +72,6 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
         });
 
         jComboBoxClientes.setModel(view.getClienteTableModel());
-        jComboBoxClientes.setSelectedIndex(-1);
         jComboBoxClientes.setToolTipText(""); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -134,7 +133,6 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
 
         try {
-            System.out.println((Cliente)jComboBoxClientes.getSelectedItem());
             view.fireCrearFacturaGesture(jTextFieldIdentificador.getText(), (Cliente)jComboBoxClientes.getSelectedItem(), jTextFieldImporte.getText());
 
         } catch (RuntimeException e) {
@@ -145,7 +143,7 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
 
         try {
-            view.fireEliminarFacturaGesture(jTextFieldIdentificador.getText());
+            view.fireEliminarFacturaGesture(jTextFieldIdentificador.getText(), (Cliente)jComboBoxClientes.getSelectedItem());
 
         } catch (RuntimeException e) {
             javax.swing.JOptionPane.showMessageDialog(new JInternalFrame(), e, "Warning", JOptionPane.WARNING_MESSAGE);
@@ -166,7 +164,7 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonModify;
-    private javax.swing.JComboBox<String> jComboBoxClientes;
+    private javax.swing.JComboBox<Cliente> jComboBoxClientes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

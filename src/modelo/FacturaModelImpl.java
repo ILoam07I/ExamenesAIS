@@ -3,6 +3,7 @@ package modelo;
 
 import controlador.FacturaController;
 import java.util.List;
+import modelo.entidades.Cliente;
 import modelo.entidades.Factura;
 import modelo.persistencia.FacturaDAO;
 import modelo.persistencia.JDBC.FacturaDAOJDBC;
@@ -10,6 +11,11 @@ import modelo.persistencia.JDBC.FacturaDAOJDBC;
 public class FacturaModelImpl implements FacturaModel {
     
     private FacturaController controller;
+    private ClienteModel clienteModel;
+
+    public FacturaModelImpl() {
+        this.clienteModel = new ClienteModelImpl();
+    }
 
     @Override
     public FacturaController getController() {
@@ -26,6 +32,7 @@ public class FacturaModelImpl implements FacturaModel {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
         
         dao.create(facturaNueva);
+        updateAsocClient(facturaNueva.getCliente());
         this.controller.fireDataModelChanged();
     }
 
@@ -34,6 +41,7 @@ public class FacturaModelImpl implements FacturaModel {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
         
         dao.update(facturaModificada);
+        updateAsocClient(facturaModificada.getCliente());
         this.controller.fireDataModelChanged();
     }
 
@@ -42,6 +50,7 @@ public class FacturaModelImpl implements FacturaModel {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
         
         dao.delete(facturaEliminada);
+        updateAsocClient(facturaEliminada.getCliente());
         this.controller.fireDataModelChanged();    
     }
 
@@ -62,6 +71,19 @@ public class FacturaModelImpl implements FacturaModel {
     @Override
     public FacturaDAO obtenerImplementacionFacturaDAO() {
         return new FacturaDAOJDBC();
+    }
+
+    @Override
+    public void updateAsocClient(Cliente client) {
+        FacturaDAO dao = obtenerImplementacionFacturaDAO();
+        List<Factura> facturasCliente = dao.listByClient(client.getDNI());
+        Double total = 0.0;
+        
+        for (Factura f : facturasCliente) {
+            total += f.getImporte();
+        }
+        
+        clienteModel.recalculateClientType(total, client);
     }
     
 }

@@ -40,13 +40,13 @@ public class ClienteControllerImpl implements ClienteController {
 
     @Override
     public void crearClienteGesture(String DNI, String nombre, String direccion) {
-        Cliente cliente = new ClienteImpl(DNI, nombre, direccion);
+        Cliente cliente = new ClienteImpl(DNI, nombre, direccion, "Normal");
         model.nuevoCliente(cliente);
     }
 
     @Override
-    public void modificarClienteGesture(String DNI, String nombre, String direccion) {
-        Cliente cliente = new ClienteImpl(DNI, nombre, direccion);
+    public void modificarClienteGesture(String DNI, String nombre, String direccion, String tipo) {
+        Cliente cliente = new ClienteImpl(DNI, nombre, direccion, tipo);
         model.modificadoCliente(cliente);
     }
 

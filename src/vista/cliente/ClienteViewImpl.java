@@ -94,8 +94,8 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
         controller.crearClienteGesture(DNI, nombre, direccion);
     }
     
-    protected void fireModificarClienteGesture(String DNI, String nombre, String direccion) {
-        controller.modificarClienteGesture(DNI, nombre, direccion);
+    protected void fireModificarClienteGesture(String DNI, String nombre, String direccion, String tipo) {
+        controller.modificarClienteGesture(DNI, nombre, direccion, tipo);
     }
     
     protected void fireEliminarClienteGesture(String DNI) {

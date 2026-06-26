@@ -3,6 +3,7 @@ package modelo;
 
 import controlador.FacturaController;
 import java.util.List;
+import modelo.entidades.Cliente;
 import modelo.entidades.Factura;
 import modelo.persistencia.FacturaDAO;
 
@@ -19,5 +20,7 @@ public interface FacturaModel {
     public List<Factura> listaFacturasPorCliente(String DNI);
     
     public FacturaDAO obtenerImplementacionFacturaDAO();
+    
+    public void updateAsocClient(Cliente client);
     
 }

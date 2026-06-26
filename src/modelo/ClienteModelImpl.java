@@ -2,6 +2,7 @@
 package modelo;
 
 import controlador.ClienteController;
+import controlador.ClienteControllerImpl;
 import java.util.List;
 import modelo.entidades.Cliente;
 import modelo.persistencia.ClienteDAO;
@@ -9,7 +10,7 @@ import modelo.persistencia.JDBC.ClienteDAOJDBC;
 
 public class ClienteModelImpl implements ClienteModel {
     
-    private ClienteController controller;
+    private ClienteController controller = new ClienteControllerImpl();
 
     @Override
     public ClienteController getController() {
@@ -52,8 +53,15 @@ public class ClienteModelImpl implements ClienteModel {
         return dao.list();
     }
     
+    @Override
     public ClienteDAO obtenerImplementacionClienteDAO() {
         return new ClienteDAOJDBC();
+    }
+    
+    @Override
+    public void recalculateClientType(Double total, Cliente cliente) {
+        cliente.recalculateType(total);
+        modificadoCliente(cliente);
     }
     
 }

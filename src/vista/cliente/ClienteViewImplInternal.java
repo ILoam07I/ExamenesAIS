@@ -8,6 +8,7 @@ import modelo.entidades.Cliente;
 public class ClienteViewImplInternal extends javax.swing.JPanel {
     
     private ClienteViewImpl view;
+    private Cliente clienteActual;
 
     /**
      * Creates new form ClienteViewImplInternal
@@ -138,7 +139,7 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
     private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
 
         try {
-            view.fireModificarClienteGesture(this.jTextFieldDNI.getText(), this.jTextFieldNombre.getText(), this.jTextFieldDireccion.getText());
+            view.fireModificarClienteGesture(this.jTextFieldDNI.getText(), this.jTextFieldNombre.getText(), this.jTextFieldDireccion.getText(), clienteActual.getTipo());
             
         } catch (RuntimeException e) {
             javax.swing.JOptionPane.showMessageDialog(new JInternalFrame(), e, "Warning", JOptionPane.WARNING_MESSAGE);
@@ -170,6 +171,8 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     public void setCliente(Cliente cliente) {
+        clienteActual = cliente;
+        
         this.jTextFieldDNI.setText(cliente.getDNI());
         this.jTextFieldNombre.setText(cliente.getNombre());
         this.jTextFieldDireccion.setText(cliente.getDireccion());

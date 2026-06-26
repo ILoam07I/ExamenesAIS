@@ -54,8 +54,8 @@ public class FacturaControllerImpl implements FacturaController {
     }
 
     @Override
-    public void eliminarFacturaGesture(String identificador) {
-        Factura factura = new FacturaImpl(identificador);
+    public void eliminarFacturaGesture(String identificador, Cliente cliente) {
+        Factura factura = new FacturaImpl(identificador, cliente);
         
         model.eliminadaFactura(factura);
     }

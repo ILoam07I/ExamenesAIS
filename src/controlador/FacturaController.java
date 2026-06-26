@@ -17,7 +17,7 @@ public interface FacturaController {
     
     public void crearFacturaGesture(String identificador, Cliente cliente, Double importe);
     public void modificarFacturaGesture(String identificador, Cliente cliente, Double importe);
-    public void eliminarFacturaGesture(String identificador);
+    public void eliminarFacturaGesture(String identificador, Cliente cliente);
     
     public List<Factura> listarFacturasGesture();
     public List<Factura> listarFacturasPorClienteGesture(String DNI);

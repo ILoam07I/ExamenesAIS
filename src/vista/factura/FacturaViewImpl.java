@@ -170,8 +170,8 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
         controller.modificarFacturaGesture(identificador, cliente, Double.valueOf(importe));
     }
     
-    public void fireEliminarFacturaGesture(String identificador) {
-        controller.eliminarFacturaGesture(identificador);
+    public void fireEliminarFacturaGesture(String identificador, Cliente cliente) {
+        controller.eliminarFacturaGesture(identificador, cliente);
     }
     
     @Override

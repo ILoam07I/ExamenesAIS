@@ -15,7 +15,7 @@ public interface ClienteController {
     public void removeView(ClienteView view);
     
     public void crearClienteGesture(String DNI, String nombre, String direccion);
-    public void modificarClienteGesture(String DNI, String nombre, String direccion);
+    public void modificarClienteGesture(String DNI, String nombre, String direccion, String tipo);
     public void eliminarClienteGesture(String DNI);
     
     public List<Cliente> listarClientesGesture();

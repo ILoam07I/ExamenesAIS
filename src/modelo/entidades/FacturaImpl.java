@@ -13,8 +13,9 @@ public class FacturaImpl implements Factura {
         this.importe = importe;
     }
 
-    public FacturaImpl(String identificador) {
+    public FacturaImpl(String identificador, Cliente cliente) {
         this.identificador = identificador;
+        this.cliente = cliente;
     }
 
     @Override
