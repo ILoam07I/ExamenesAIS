@@ -60,7 +60,7 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -79,6 +79,10 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
                 
             case 2:
                 columnName = "Direccion";
+                break;
+                
+            case 3:
+                columnName = "Tipo";
                 break;
             
             default:
@@ -114,6 +118,10 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
                 
             case 2:
                 val = clienteSelected.getDireccion();
+                break;
+                
+            case 3:
+                val = clienteSelected.getTipo();
                 break;
             
             default:

@@ -3,6 +3,7 @@ package modelo;
 
 import controlador.FacturaController;
 import java.util.List;
+import modelo.entidades.Cliente;
 import modelo.entidades.Factura;
 import modelo.persistencia.FacturaDAO;
 import modelo.persistencia.JDBC.FacturaDAOJDBC;
@@ -24,24 +25,30 @@ public class FacturaModelImpl implements FacturaModel {
     @Override
     public void nuevaFactura(Factura facturaNueva) {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
+        Cliente clienteAsoc = facturaNueva.getCliente();
         
         dao.create(facturaNueva);
+        clienteAsoc.updateTipoCliente(dao.listByClient(clienteAsoc.getDNI()));
         this.controller.fireDataModelChanged();
     }
 
     @Override
     public void modificadaFactura(Factura facturaModificada) {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
+        Cliente clienteAsoc = facturaModificada.getCliente();
         
         dao.update(facturaModificada);
+        clienteAsoc.updateTipoCliente(dao.listByClient(clienteAsoc.getDNI()));
         this.controller.fireDataModelChanged();
     }
 
     @Override
     public void eliminadaFactura(Factura facturaEliminada) {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
+        Cliente clienteAsoc = facturaEliminada.getCliente();
         
         dao.delete(facturaEliminada);
+        clienteAsoc.updateTipoCliente(dao.listByClient(clienteAsoc.getDNI()));
         this.controller.fireDataModelChanged();    
     }
 
@@ -63,5 +70,5 @@ public class FacturaModelImpl implements FacturaModel {
     public FacturaDAO obtenerImplementacionFacturaDAO() {
         return new FacturaDAOJDBC();
     }
-    
+
 }

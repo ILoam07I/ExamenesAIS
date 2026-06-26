@@ -30,9 +30,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane2" pref="203" max="32767" attributes="0"/>
+              <Component id="jScrollPane2" pref="300" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jPanelCliente" min="-2" pref="280" max="-2" attributes="0"/>
+              <Component id="jPanelCliente" min="-2" pref="400" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -51,6 +51,9 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
     </Container>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <Properties>
+        <Property name="name" type="java.lang.String" value="" noResource="true"/>
+      </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>

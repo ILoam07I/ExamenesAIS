@@ -47,6 +47,8 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
         jPanelCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelCliente.setLayout(new javax.swing.BoxLayout(jPanelCliente, javax.swing.BoxLayout.LINE_AXIS));
 
+        jScrollPane2.setName(""); // NOI18N
+
         jTableClientes.setModel(tableModel);
         jTableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -70,9 +72,9 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

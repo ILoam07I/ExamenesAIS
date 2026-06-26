@@ -5,7 +5,9 @@ import controlador.ClienteController;
 import java.util.List;
 import modelo.entidades.Cliente;
 import modelo.persistencia.ClienteDAO;
+import modelo.persistencia.FacturaDAO;
 import modelo.persistencia.JDBC.ClienteDAOJDBC;
+import modelo.persistencia.JDBC.FacturaDAOJDBC;
 
 public class ClienteModelImpl implements ClienteModel {
     
@@ -47,13 +49,23 @@ public class ClienteModelImpl implements ClienteModel {
 
     @Override
     public List<Cliente> listaClientes() {
-        ClienteDAO dao = obtenerImplementacionClienteDAO();
+        ClienteDAO cDao = obtenerImplementacionClienteDAO();
+        FacturaDAO fDao = obtenerImplementacionFacturaDAO();
+        List<Cliente> clientes = cDao.list();
         
-        return dao.list();
+        for (Cliente cliente : clientes) {
+            cliente.updateTipoCliente(fDao.listByClient(cliente.getDNI()));
+        }
+        
+        return clientes;
     }
     
     public ClienteDAO obtenerImplementacionClienteDAO() {
         return new ClienteDAOJDBC();
+    }
+    
+    public FacturaDAO obtenerImplementacionFacturaDAO() {
+        return new FacturaDAOJDBC();
     }
     
 }

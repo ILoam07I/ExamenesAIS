@@ -49,7 +49,7 @@ public class VistaGlobal extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(jTabbedPanel)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

@@ -3,6 +3,7 @@ package modelo;
 
 import controlador.FacturaController;
 import java.util.List;
+import modelo.entidades.Cliente;
 import modelo.entidades.Factura;
 import modelo.persistencia.FacturaDAO;
 

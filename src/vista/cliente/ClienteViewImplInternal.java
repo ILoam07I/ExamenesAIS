@@ -37,6 +37,8 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
         jButtonAdd = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jButtonModify = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldTipo = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 102, 255));
@@ -72,6 +74,12 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Tipo");
+
+        jTextFieldTipo.setEditable(false);
+        jTextFieldTipo.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,7 +91,8 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,7 +104,8 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jButtonAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButtonModify, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(jButtonModify, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel1)))
@@ -121,7 +131,11 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonDelete))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -164,15 +178,18 @@ public class ClienteViewImplInternal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTextFieldDNI;
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldNombre;
+    private javax.swing.JTextField jTextFieldTipo;
     // End of variables declaration//GEN-END:variables
 
     public void setCliente(Cliente cliente) {
         this.jTextFieldDNI.setText(cliente.getDNI());
         this.jTextFieldNombre.setText(cliente.getNombre());
         this.jTextFieldDireccion.setText(cliente.getDireccion());
+        this.jTextFieldTipo.setText(cliente.getTipo());
     }
 
 }
