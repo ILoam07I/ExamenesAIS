@@ -36,7 +36,7 @@ public class FacturaTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -57,6 +57,10 @@ public class FacturaTableModel implements TableModel {
                 nombre = "Importe";
                 break;
                 
+            case 3:
+                nombre = "Pendiente de Pago";
+                break;
+                
             default:
                 nombre = null;
                 break;
@@ -73,6 +77,10 @@ public class FacturaTableModel implements TableModel {
             
             case 2:
                 c = Double.class;
+                break;
+                
+            case 3:
+                c = Boolean.class;
                 break;
                 
             default:
@@ -105,6 +113,10 @@ public class FacturaTableModel implements TableModel {
             
             case 2:
                 val = (Double) facturaSelected.getImporte();
+                break;
+                
+            case 3:
+                val = (Boolean) facturaSelected.isPendiente();
                 break;
                 
             default:

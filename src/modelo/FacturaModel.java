@@ -16,7 +16,7 @@ public interface FacturaModel {
     public void eliminadaFactura(Factura facturaEliminada);
     
     public List<Factura> listaFacturas();
-    public List<Factura> listaFacturasPorCliente(String DNI);
+    public List<Factura> listaFacturasPorFecha(String fechaFilter);
     
     public FacturaDAO obtenerImplementacionFacturaDAO();
     

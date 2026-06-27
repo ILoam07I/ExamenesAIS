@@ -48,10 +48,10 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFacturas = new javax.swing.JTable();
         jPanelFactura = new javax.swing.JPanel();
-        jComboBoxCliente = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jButtonFiltrar = new javax.swing.JButton();
         jButtonQuitarFiltro = new javax.swing.JButton();
+        jTextFieldFechaFilter = new javax.swing.JTextField();
 
         jTableFacturas.setModel(facturaTableModel);
         jTableFacturas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,9 +64,7 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
         jPanelFactura.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelFactura.setLayout(new javax.swing.BoxLayout(jPanelFactura, javax.swing.BoxLayout.LINE_AXIS));
 
-        jComboBoxCliente.setModel(clienteTableModel);
-
-        jLabel1.setText("Cliente");
+        jLabel1.setText("Fecha");
 
         jButtonFiltrar.setText("Filtrar");
         jButtonFiltrar.setActionCommand("Filter");
@@ -84,6 +82,12 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
             }
         });
 
+        jTextFieldFechaFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldFechaFilterActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,12 +98,12 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
                     .addComponent(jPanelFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jTextFieldFechaFilter))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(jButtonFiltrar)
@@ -118,7 +122,7 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextFieldFechaFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonFiltrar)
@@ -137,37 +141,41 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
     }//GEN-LAST:event_jTableFacturasMouseClicked
 
     private void jButtonFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilterActionPerformed
-        ClienteTableComboModel ctm =(ClienteTableComboModel) jComboBoxCliente.getModel();
-        Cliente cliente = ctm.getCliente(jComboBoxCliente.getSelectedIndex());
-        List<Factura> facturas = controller.listarFacturasPorClienteGesture(cliente.getDNI());
+        String fechaFilter = jTextFieldFechaFilter.getText();
+        List<Factura> facturas = controller.listarFacturasPorFechaGesture(fechaFilter);
         
         facturaTableModel.setFacturas(facturas);
     }//GEN-LAST:event_jButtonFilterActionPerformed
 
     private void jButtonRemoveFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveFilterActionPerformed
         dataModelChanged();
+        jTextFieldFechaFilter.setText("");
     }//GEN-LAST:event_jButtonRemoveFilterActionPerformed
+
+    private void jTextFieldFechaFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldFechaFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldFechaFilterActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonQuitarFiltro;
-    private javax.swing.JComboBox jComboBoxCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelFactura;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableFacturas;
+    private javax.swing.JTextField jTextFieldFechaFilter;
     // End of variables declaration//GEN-END:variables
 
     public ClienteTableComboModel getClienteTableModel() {
         return clienteTableModel;
     }
     
-    public void fireCrearFacturaGesture(String identificador, Cliente cliente, String importe) {
-        controller.crearFacturaGesture(identificador, cliente, Double.valueOf(importe));
+    public void fireCrearFacturaGesture(String identificador, Cliente cliente, String importe, String fechaPago) {
+        controller.crearFacturaGesture(identificador, cliente, Double.valueOf(importe), fechaPago);
     }
     
-    public void fireModificarFacturaGesture(String identificador, Cliente cliente, String importe) {
-        controller.modificarFacturaGesture(identificador, cliente, Double.valueOf(importe));
+    public void fireModificarFacturaGesture(String identificador, Cliente cliente, String importe, String fechaPago) {
+        controller.modificarFacturaGesture(identificador, cliente, Double.valueOf(importe), fechaPago);
     }
     
     public void fireEliminarFacturaGesture(String identificador) {

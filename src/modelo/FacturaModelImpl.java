@@ -53,10 +53,10 @@ public class FacturaModelImpl implements FacturaModel {
     }
 
     @Override
-    public List<Factura> listaFacturasPorCliente(String DNI) {
+    public List<Factura> listaFacturasPorFecha(String fechaFilter) {
         FacturaDAO dao = obtenerImplementacionFacturaDAO();
         
-        return dao.listByClient(DNI);
+        return dao.listByDate(fechaFilter);
     }
 
     @Override

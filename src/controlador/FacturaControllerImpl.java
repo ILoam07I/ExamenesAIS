@@ -40,15 +40,15 @@ public class FacturaControllerImpl implements FacturaController {
     }
 
     @Override
-    public void crearFacturaGesture(String identificador, Cliente cliente, Double importe) {
-        Factura factura = new FacturaImpl(identificador, cliente, importe);
+    public void crearFacturaGesture(String identificador, Cliente cliente, Double importe, String fechaPago) {
+        Factura factura = new FacturaImpl(identificador, cliente, importe, fechaPago);
         
         model.nuevaFactura(factura);
     }
 
     @Override
-    public void modificarFacturaGesture(String identificador, Cliente cliente, Double importe) {
-        Factura factura = new FacturaImpl(identificador, cliente, importe);
+    public void modificarFacturaGesture(String identificador, Cliente cliente, Double importe, String fechaPago) {
+        Factura factura = new FacturaImpl(identificador, cliente, importe, fechaPago);
         
         model.modificadaFactura(factura);
     }
@@ -66,8 +66,8 @@ public class FacturaControllerImpl implements FacturaController {
     }
 
     @Override
-    public List<Factura> listarFacturasPorClienteGesture(String DNI) {
-        return model.listaFacturasPorCliente(DNI);
+    public List<Factura> listarFacturasPorFechaGesture(String fechaFilter) {
+        return model.listaFacturasPorFecha(fechaFilter);
     }
 
     @Override

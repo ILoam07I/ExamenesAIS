@@ -37,6 +37,8 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
         jButtonModify = new javax.swing.JButton();
         jComboBoxClientes = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jTextFieldFechaPago = new javax.swing.JTextField();
 
         setPreferredSize(new java.awt.Dimension(685, 300));
 
@@ -72,11 +74,13 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
         });
 
         jComboBoxClientes.setModel(view.getClienteTableModel());
-        jComboBoxClientes.setSelectedIndex(-1);
         jComboBoxClientes.setToolTipText(""); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Clientes:");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Fecha de Pago:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -89,9 +93,11 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -105,7 +111,7 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel1)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +133,11 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
                     .addComponent(jLabel4)
                     .addComponent(jTextFieldImporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonDelete))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextFieldFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -135,7 +145,7 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
 
         try {
             System.out.println((Cliente)jComboBoxClientes.getSelectedItem());
-            view.fireCrearFacturaGesture(jTextFieldIdentificador.getText(), (Cliente)jComboBoxClientes.getSelectedItem(), jTextFieldImporte.getText());
+            view.fireCrearFacturaGesture(jTextFieldIdentificador.getText(), (Cliente)jComboBoxClientes.getSelectedItem(), jTextFieldImporte.getText(), jTextFieldFechaPago.getText());
 
         } catch (RuntimeException e) {
             javax.swing.JOptionPane.showMessageDialog(new JInternalFrame(), e, "Warning", JOptionPane.WARNING_MESSAGE);
@@ -155,7 +165,7 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
     private void jButtonModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModifyActionPerformed
 
         try {
-            view.fireModificarFacturaGesture(jTextFieldIdentificador.getText(), (Cliente)jComboBoxClientes.getSelectedItem(), jTextFieldImporte.getText());
+            view.fireModificarFacturaGesture(jTextFieldIdentificador.getText(), (Cliente)jComboBoxClientes.getSelectedItem(), jTextFieldImporte.getText(), jTextFieldFechaPago.getText());
 
         } catch (RuntimeException e) {
             javax.swing.JOptionPane.showMessageDialog(new JInternalFrame(), e, "Warning", JOptionPane.WARNING_MESSAGE);
@@ -171,6 +181,8 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField jTextFieldFechaPago;
     private javax.swing.JTextField jTextFieldIdentificador;
     private javax.swing.JTextField jTextFieldImporte;
     // End of variables declaration//GEN-END:variables
@@ -179,6 +191,7 @@ public class FacturaViewImplInternal extends javax.swing.JPanel {
         jTextFieldIdentificador.setText(factura.getIdentificador());
         jTextFieldImporte.setText(String.valueOf(factura.getImporte()));
         jComboBoxClientes.setSelectedItem(factura.getCliente());
+        jTextFieldFechaPago.setText(factura.getFechaPagoToString());
     }
     
 }

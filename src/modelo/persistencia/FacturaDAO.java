@@ -11,6 +11,6 @@ public interface FacturaDAO {
     public void update(Factura factura);
     public void delete(Factura factura);
     public List <Factura> list();
-    public List<Factura> listByClient(String DNI);
+    public List<Factura> listByDate(String fechaFilter);
     
 }

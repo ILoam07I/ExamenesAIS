@@ -15,12 +15,12 @@ public interface FacturaController {
     public void addView(FacturaView view);
     public void removeView(FacturaView view);
     
-    public void crearFacturaGesture(String identificador, Cliente cliente, Double importe);
-    public void modificarFacturaGesture(String identificador, Cliente cliente, Double importe);
+    public void crearFacturaGesture(String identificador, Cliente cliente, Double importe, String fechaPago);
+    public void modificarFacturaGesture(String identificador, Cliente cliente, Double importe, String fechaPago);
     public void eliminarFacturaGesture(String identificador);
     
     public List<Factura> listarFacturasGesture();
-    public List<Factura> listarFacturasPorClienteGesture(String DNI);
+    public List<Factura> listarFacturasPorFechaGesture(String fechaFilter);
     
     public void fireDataModelChanged();
     
