@@ -6,6 +6,7 @@ import java.util.List;
 import modelo.ClienteModel;
 import modelo.entidades.Cliente;
 import modelo.entidades.ClienteImpl;
+import modelo.entidades.MetodoPago;
 import vista.cliente.ClienteView;
 
 public class ClienteControllerImpl implements ClienteController {
@@ -29,7 +30,7 @@ public class ClienteControllerImpl implements ClienteController {
 
     @Override
     public void addView(ClienteView view) {
-        view.setController(this);
+        view.setcController(this);
         views.add(view);
     }
 
@@ -39,14 +40,14 @@ public class ClienteControllerImpl implements ClienteController {
     }
 
     @Override
-    public void crearClienteGesture(String DNI, String nombre, String direccion) {
-        Cliente cliente = new ClienteImpl(DNI, nombre, direccion);
+    public void crearClienteGesture(String DNI, String nombre, String direccion, MetodoPago metodoPago) {
+        Cliente cliente = new ClienteImpl(DNI, nombre, direccion, metodoPago);
         model.nuevoCliente(cliente);
     }
 
     @Override
-    public void modificarClienteGesture(String DNI, String nombre, String direccion) {
-        Cliente cliente = new ClienteImpl(DNI, nombre, direccion);
+    public void modificarClienteGesture(String DNI, String nombre, String direccion, MetodoPago metodoPago) {
+        Cliente cliente = new ClienteImpl(DNI, nombre, direccion, metodoPago);
         model.modificadoCliente(cliente);
     }
 
@@ -75,6 +76,7 @@ public class ClienteControllerImpl implements ClienteController {
     }
     
     public void addViews(List<ClienteView> views) {
+        
         for (ClienteView v : views) {
             addView(v);
         }

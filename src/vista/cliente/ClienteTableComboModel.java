@@ -10,6 +10,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 import modelo.entidades.Cliente;
+import modelo.entidades.MetodoPago;
 
 public class ClienteTableComboModel implements TableModel, ComboBoxModel {
     
@@ -60,7 +61,7 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -80,6 +81,10 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
             case 2:
                 columnName = "Direccion";
                 break;
+                
+            case 3:
+                columnName = "Metodo de Pago";
+                break;
             
             default:
                 columnName = null;
@@ -90,7 +95,20 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        return String.class;
+        Class c;
+        
+        switch (columnIndex) {
+            
+            case 3:
+                c = MetodoPago.class;
+                break;
+                
+            default:
+                c = String.class;
+                break;
+        }
+        
+        return c;
     }
 
     @Override
@@ -101,19 +119,23 @@ public class ClienteTableComboModel implements TableModel, ComboBoxModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cliente clienteSelected = clientes.get(rowIndex);
-        String val;
+        Object val;
         
         switch (columnIndex) {
             case 0:
-                val = clienteSelected.getDNI();
+                val = (String) clienteSelected.getDNI();
                 break;
                 
             case 1:
-                val = clienteSelected.getNombre();
+                val = (String) clienteSelected.getNombre();
                 break;
                 
             case 2:
-                val = clienteSelected.getDireccion();
+                val = (String) clienteSelected.getDireccion();
+                break;
+                
+            case 3:
+                val = (MetodoPago) clienteSelected.getMetodoPago();
                 break;
             
             default:

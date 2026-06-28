@@ -22,7 +22,7 @@ public class ClienteDAOJDBC implements ClienteDAO {
             Statement stmt = Persistencia.createConnection().createStatement();
             ResultSet res = stmt.executeQuery(sql);
             
-            c = new ClienteImpl(res.getString("dni"), res.getString("nombre"), res.getString("direccion"));
+            c = new ClienteImpl(res.getString("dni"), res.getString("nombre"), res.getString("direccion"), res.getString("metodo_pago"));
             
             
         } catch(SQLException ex) {
@@ -37,13 +37,14 @@ public class ClienteDAOJDBC implements ClienteDAO {
 
     @Override
     public void create(Cliente cliente) {
-        String sql = "INSERT INTO clientes(dni, nombre, direccion) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO clientes(dni, nombre, direccion, metodo_pago) VALUES (?, ?, ?, ?)";
         
         try {
             PreparedStatement pstmt = Persistencia.createConnection().prepareStatement(sql);
             pstmt.setString(1, cliente.getDNI());
             pstmt.setString(2, cliente.getNombre());
             pstmt.setString(3, cliente.getDireccion());
+            pstmt.setString(4, cliente.getMetodoPagoToString());
             pstmt.executeUpdate();
             
         } catch (SQLException ex) {
@@ -56,13 +57,14 @@ public class ClienteDAOJDBC implements ClienteDAO {
 
     @Override
     public void update(Cliente cliente) {
-        String sql = "UPDATE clientes SET nombre = ?, direccion = ? WHERE dni LIKE ?";
+        String sql = "UPDATE clientes SET nombre = ?, direccion = ?, metodo_pago = ? WHERE dni LIKE ?";
         
         try {
             PreparedStatement pstmt = Persistencia.createConnection().prepareStatement(sql);
             pstmt.setString(1, cliente.getNombre());
             pstmt.setString(2, cliente.getDireccion());
-            pstmt.setString(3, cliente.getDNI());
+            pstmt.setString(4, cliente.getDNI());
+            pstmt.setString(3, cliente.getMetodoPagoToString());
             pstmt.executeUpdate();
             
         } catch (SQLException ex) {
@@ -101,7 +103,8 @@ public class ClienteDAOJDBC implements ClienteDAO {
             while (res.next()) {
                 clientes.add(new ClienteImpl(res.getString("dni"),
                         res.getString("nombre"),
-                        res.getString("direccion")));
+                        res.getString("direccion"),
+                        res.getString("metodo_pago")));
             }
             res.close();
             

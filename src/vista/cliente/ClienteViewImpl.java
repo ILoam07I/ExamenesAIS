@@ -2,19 +2,22 @@
 package vista.cliente;
 
 import controlador.ClienteController;
+import controlador.MetodoPagoController;
 import modelo.entidades.Cliente;
+import modelo.entidades.MetodoPago;
+import vista.metodo_pago.MetodoPagoModel;
 
 public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
     
-    private ClienteController controller;
-    private ClienteTableComboModel tableModel;
+    private ClienteController cController;
+    private MetodoPagoController mController;
+    private ClienteTableComboModel tableClienteModel;
+    private MetodoPagoModel comboMetodoPago;
     private ClienteViewImplInternal panelCliente;
 
-    /**
-     * Creates new form ClienteViewImpl
-     */
     public ClienteViewImpl() {
-        tableModel = ClienteTableComboModel.getInstance();
+        tableClienteModel = ClienteTableComboModel.getInstance();
+        comboMetodoPago = new MetodoPagoModel();
         initComponents();
         
         panelCliente = new ClienteViewImplInternal(this);
@@ -22,13 +25,28 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
     }
     
     @Override
-    public ClienteController getController() {
-        return controller;
+    public ClienteController getcController() {
+        return cController;
     }
 
     @Override
-    public void setController(ClienteController controller) {
-        this.controller = controller;
+    public void setcController(ClienteController cController) {
+        this.cController = cController;
+    }
+
+    @Override
+    public MetodoPagoModel getComboMetodoPago() {
+        return comboMetodoPago;
+    }
+
+    @Override
+    public MetodoPagoController getmController() {
+        return mController;
+    }
+
+    @Override
+    public void setmController(MetodoPagoController mController) {
+        this.mController = mController;
     }
 
     /**
@@ -44,10 +62,15 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
 
+        setPreferredSize(new java.awt.Dimension(450, 500));
+
         jPanelCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanelCliente.setPreferredSize(new java.awt.Dimension(450, 300));
         jPanelCliente.setLayout(new javax.swing.BoxLayout(jPanelCliente, javax.swing.BoxLayout.LINE_AXIS));
 
-        jTableClientes.setModel(tableModel);
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(450, 400));
+
+        jTableClientes.setModel(tableClienteModel);
         jTableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableClientesMouseClicked(evt);
@@ -62,17 +85,17 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 553, Short.MAX_VALUE)
-                    .addComponent(jPanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                    .addComponent(jPanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanelCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -90,21 +113,22 @@ public class ClienteViewImpl extends javax.swing.JPanel implements ClienteView {
     private javax.swing.JTable jTableClientes;
     // End of variables declaration//GEN-END:variables
 
-    protected void fireCrearClienteGesture(String DNI, String nombre, String direccion) {
-        controller.crearClienteGesture(DNI, nombre, direccion);
+    protected void fireCrearClienteGesture(String DNI, String nombre, String direccion, MetodoPago metodoPago) {
+        cController.crearClienteGesture(DNI, nombre, direccion, metodoPago);
     }
     
-    protected void fireModificarClienteGesture(String DNI, String nombre, String direccion) {
-        controller.modificarClienteGesture(DNI, nombre, direccion);
+    protected void fireModificarClienteGesture(String DNI, String nombre, String direccion, MetodoPago metodoPago) {
+        cController.modificarClienteGesture(DNI, nombre, direccion, metodoPago);
     }
     
     protected void fireEliminarClienteGesture(String DNI) {
-        controller.eliminarClienteGesture(DNI);
+        cController.eliminarClienteGesture(DNI);
     }
 
     @Override
     public void dataModelChanged() {
-        tableModel.setClientes(controller.listarClientesGesture());
+        comboMetodoPago.setMetodos(mController.listarMetodosGesture());
+        tableClienteModel.setClientes(cController.listarClientesGesture());
     }
     
     @Override

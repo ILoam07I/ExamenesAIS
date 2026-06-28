@@ -104,7 +104,7 @@ public class FacturaDAOJDBC implements FacturaDAO {
         try {
             Statement stmt = Persistencia.createConnection().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM vfacturas");
-            String DNI, nombre, direccion, identificador;
+            String DNI, nombre, direccion, identificador, metodoPago;
             double importe;
             
             while (res.next()) {
@@ -113,8 +113,9 @@ public class FacturaDAOJDBC implements FacturaDAO {
                 direccion = res.getString("direccion");
                 identificador = res.getString("identificador");
                 importe = res.getDouble("importe");
+                metodoPago = res.getString("metodo_pago");
 
-                Cliente cliente = new ClienteImpl(DNI, nombre, direccion);
+                Cliente cliente = new ClienteImpl(DNI, nombre, direccion, metodoPago);
 
                 facturas.add(new FacturaImpl(identificador, cliente, importe));
             }
@@ -130,22 +131,28 @@ public class FacturaDAOJDBC implements FacturaDAO {
     }
 
     @Override
-    public List<Factura> listByClient(String DNI) {
+    public List<Factura> listByMethod(String method) {
         List<Factura> facturas = new ArrayList<>();
 
         try {
-            Statement stmt = Persistencia.createConnection().createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM vfacturas where DNI = " + DNI);
-            String nombre,direccion, identificador;
+            String sql = "SELECT * FROM vfacturas WHERE metodo_pago = ?";
+            String dni, nombre, direccion, identificador, metodoPago;
             double importe;
+
+            PreparedStatement stm = Persistencia.createConnection().prepareStatement(sql);
+            stm.setString(1, method);
+
+            ResultSet res = stm.executeQuery();
             
             while (res.next()) {
+                dni = res.getString("dni");
                 nombre = res.getString("nombre");
                 direccion = res.getString("direccion");
                 identificador = res.getString("identificador");
                 importe = res.getDouble("importe");
+                metodoPago = res.getString("metodo_pago");
 
-                Cliente cliente = new ClienteImpl(DNI, nombre, direccion);
+                Cliente cliente = new ClienteImpl(dni, nombre, direccion, metodoPago);
 
                 facturas.add(new FacturaImpl(identificador, cliente, importe));
             }

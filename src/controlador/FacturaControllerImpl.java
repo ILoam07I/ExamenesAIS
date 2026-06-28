@@ -7,6 +7,7 @@ import modelo.FacturaModel;
 import modelo.entidades.Cliente;
 import modelo.entidades.Factura;
 import modelo.entidades.FacturaImpl;
+import modelo.entidades.MetodoPago;
 import vista.factura.FacturaView;
 
 public class FacturaControllerImpl implements FacturaController {
@@ -30,7 +31,7 @@ public class FacturaControllerImpl implements FacturaController {
 
     @Override
     public void addView(FacturaView view) {
-        view.setController(this);
+        view.setfController(this);
         views.add(view);
     }
 
@@ -66,8 +67,8 @@ public class FacturaControllerImpl implements FacturaController {
     }
 
     @Override
-    public List<Factura> listarFacturasPorClienteGesture(String DNI) {
-        return model.listaFacturasPorCliente(DNI);
+    public List<Factura> listarFacturasPorMetodoGesture(MetodoPago metodoPago) {
+        return model.listaFacturasPorMetodo(metodoPago);
     }
 
     @Override

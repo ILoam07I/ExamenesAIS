@@ -4,6 +4,7 @@ package modelo;
 import controlador.FacturaController;
 import java.util.List;
 import modelo.entidades.Factura;
+import modelo.entidades.MetodoPago;
 import modelo.persistencia.FacturaDAO;
 
 public interface FacturaModel {
@@ -16,7 +17,7 @@ public interface FacturaModel {
     public void eliminadaFactura(Factura facturaEliminada);
     
     public List<Factura> listaFacturas();
-    public List<Factura> listaFacturasPorCliente(String DNI);
+    public List<Factura> listaFacturasPorMetodo(MetodoPago metodoPago);
     
     public FacturaDAO obtenerImplementacionFacturaDAO();
     

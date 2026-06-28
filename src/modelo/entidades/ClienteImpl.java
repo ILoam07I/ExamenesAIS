@@ -6,11 +6,20 @@ public class ClienteImpl implements Cliente {
     private String DNI;
     private String nombre;
     private String direccion;
+    private MetodoPago metodoPago;
 
-    public ClienteImpl(String DNI, String nombre, String direccion) {
+    public ClienteImpl(String DNI, String nombre, String direccion, MetodoPago metodoPago) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.direccion = direccion;
+        this.metodoPago = metodoPago;
+    }
+    
+    public ClienteImpl(String DNI, String nombre, String direccion, String metodoPago) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.metodoPago = new MetodoPagoImpl(metodoPago);
     }
 
     public ClienteImpl(String DNI) {
@@ -33,6 +42,11 @@ public class ClienteImpl implements Cliente {
     }
 
     @Override
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
+
+    @Override
     public void setDNI(String DNI) {
         this.DNI = DNI;
     }
@@ -45,6 +59,22 @@ public class ClienteImpl implements Cliente {
     @Override
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    @Override
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+    
+    @Override
+    public String getMetodoPagoToString() {
+        
+        if (metodoPago == null) {
+            return null;
+            
+        } else {      
+            return metodoPago.toString();
+        }
     }
     
     @Override

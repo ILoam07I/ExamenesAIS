@@ -2,8 +2,10 @@
 package modelo;
 
 import controlador.FacturaController;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.entidades.Factura;
+import modelo.entidades.MetodoPago;
 import modelo.persistencia.FacturaDAO;
 import modelo.persistencia.JDBC.FacturaDAOJDBC;
 
@@ -53,10 +55,16 @@ public class FacturaModelImpl implements FacturaModel {
     }
 
     @Override
-    public List<Factura> listaFacturasPorCliente(String DNI) {
-        FacturaDAO dao = obtenerImplementacionFacturaDAO();
+    public List<Factura> listaFacturasPorMetodo(MetodoPago metodoPago) {
         
-        return dao.listByClient(DNI);
+        if (metodoPago != null) {
+            FacturaDAO dao = obtenerImplementacionFacturaDAO();
+
+            return dao.listByMethod(metodoPago.getMetodo());
+            
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     @Override

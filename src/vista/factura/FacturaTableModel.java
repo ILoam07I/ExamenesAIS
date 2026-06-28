@@ -36,7 +36,7 @@ public class FacturaTableModel implements TableModel {
 
     @Override
     public int getColumnCount() {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -55,6 +55,10 @@ public class FacturaTableModel implements TableModel {
             
             case 2:
                 nombre = "Importe";
+                break;
+            
+            case 3:
+                nombre = "Metodo de Pago";
                 break;
                 
             default:
@@ -105,6 +109,10 @@ public class FacturaTableModel implements TableModel {
             
             case 2:
                 val = (Double) facturaSelected.getImporte();
+                break;
+                
+            case 3:
+                val = (String) facturaSelected.getCliente().getMetodoPagoToString();
                 break;
                 
             default:

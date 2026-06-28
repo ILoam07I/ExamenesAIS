@@ -2,16 +2,21 @@
 package vista.factura;
 
 import controlador.FacturaController;
+import controlador.MetodoPagoController;
 import java.util.List;
 import modelo.entidades.Cliente;
 import modelo.entidades.Factura;
+import modelo.entidades.MetodoPago;
 import vista.cliente.ClienteTableComboModel;
+import vista.metodo_pago.MetodoPagoModel;
 
 public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
     
-    private FacturaController controller;
+    private FacturaController fController;
+    private MetodoPagoController mController;
     private FacturaTableModel facturaTableModel;
-    private ClienteTableComboModel clienteTableModel; 
+    private ClienteTableComboModel clienteTableModel;
+    private MetodoPagoModel metodoPagoModel;
     private FacturaViewImplInternal panelFactura;
 
     /**
@@ -20,6 +25,7 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
     public FacturaViewImpl() {
         facturaTableModel = new FacturaTableModel();
         clienteTableModel = ClienteTableComboModel.getInstance();
+        metodoPagoModel = new MetodoPagoModel();
         initComponents();
         
         panelFactura = new FacturaViewImplInternal(this);
@@ -27,13 +33,23 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
     }
 
     @Override
-    public FacturaController getController() {
-        return controller;
+    public FacturaController getfController() {
+        return fController;
     }
 
     @Override
-    public void setController(FacturaController controller) {
-        this.controller = controller;
+    public MetodoPagoController getmController() {
+        return mController;
+    }
+
+    @Override
+    public void setfController(FacturaController fController) {
+        this.fController = fController;
+    }
+
+    @Override
+    public void setmController(MetodoPagoController mController) {
+        this.mController = mController;
     }
 
     /**
@@ -48,7 +64,7 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFacturas = new javax.swing.JTable();
         jPanelFactura = new javax.swing.JPanel();
-        jComboBoxCliente = new javax.swing.JComboBox();
+        jComboBoxMetodosPago = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jButtonFiltrar = new javax.swing.JButton();
         jButtonQuitarFiltro = new javax.swing.JButton();
@@ -64,9 +80,9 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
         jPanelFactura.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanelFactura.setLayout(new javax.swing.BoxLayout(jPanelFactura, javax.swing.BoxLayout.LINE_AXIS));
 
-        jComboBoxCliente.setModel(clienteTableModel);
+        jComboBoxMetodosPago.setModel(metodoPagoModel);
 
-        jLabel1.setText("Cliente");
+        jLabel1.setText("Métodos:");
 
         jButtonFiltrar.setText("Filtrar");
         jButtonFiltrar.setActionCommand("Filter");
@@ -99,7 +115,7 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBoxCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jComboBoxMetodosPago, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(jButtonFiltrar)
@@ -118,7 +134,7 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxMetodosPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButtonFiltrar)
@@ -137,21 +153,21 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
     }//GEN-LAST:event_jTableFacturasMouseClicked
 
     private void jButtonFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFilterActionPerformed
-        ClienteTableComboModel ctm =(ClienteTableComboModel) jComboBoxCliente.getModel();
-        Cliente cliente = ctm.getCliente(jComboBoxCliente.getSelectedIndex());
-        List<Factura> facturas = controller.listarFacturasPorClienteGesture(cliente.getDNI());
+        MetodoPago metodoSelected = (MetodoPago) jComboBoxMetodosPago.getSelectedItem();
+        List<Factura> facturas = fController.listarFacturasPorMetodoGesture(metodoSelected);
         
         facturaTableModel.setFacturas(facturas);
     }//GEN-LAST:event_jButtonFilterActionPerformed
 
     private void jButtonRemoveFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoveFilterActionPerformed
+        jComboBoxMetodosPago.setSelectedItem(null);
         dataModelChanged();
     }//GEN-LAST:event_jButtonRemoveFilterActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonFiltrar;
     private javax.swing.JButton jButtonQuitarFiltro;
-    private javax.swing.JComboBox jComboBoxCliente;
+    private javax.swing.JComboBox jComboBoxMetodosPago;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanelFactura;
     private javax.swing.JScrollPane jScrollPane1;
@@ -163,20 +179,21 @@ public class FacturaViewImpl extends javax.swing.JPanel implements FacturaView {
     }
     
     public void fireCrearFacturaGesture(String identificador, Cliente cliente, String importe) {
-        controller.crearFacturaGesture(identificador, cliente, Double.valueOf(importe));
+        fController.crearFacturaGesture(identificador, cliente, Double.valueOf(importe));
     }
     
     public void fireModificarFacturaGesture(String identificador, Cliente cliente, String importe) {
-        controller.modificarFacturaGesture(identificador, cliente, Double.valueOf(importe));
+        fController.modificarFacturaGesture(identificador, cliente, Double.valueOf(importe));
     }
     
     public void fireEliminarFacturaGesture(String identificador) {
-        controller.eliminarFacturaGesture(identificador);
+        fController.eliminarFacturaGesture(identificador);
     }
     
     @Override
     public void dataModelChanged() {
-        facturaTableModel.setFacturas(controller.listarFacturasGesture());
+        facturaTableModel.setFacturas(fController.listarFacturasGesture());
+        metodoPagoModel.setMetodos(mController.listarMetodosGesture());
     }
     
     @Override
